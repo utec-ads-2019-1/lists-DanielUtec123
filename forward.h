@@ -14,7 +14,7 @@ class ForwardList : public List<T> {
                     return this->head->data;
             }
 
-            throw out_of_range("number of elements");
+            throw out_of_range("lista sin elementos");
         }
 
         T back() {
@@ -23,22 +23,23 @@ class ForwardList : public List<T> {
                 return this->tail->data;
             }
 
-            throw out_of_range("number of elements");
+            throw out_of_range("lista sin elementos");
 
         }
 
         void push_front(T value) {
 
             //añade un elemento al inicio de la lista
-            Node<T>* A = new Node<T>;
+            Node<T>* A = new Node<T>{value, nullptr, nullptr};
             A->data = value;
             if(this->head){
                 A->next = this->head;
                 this->head = A;
             } else{
-                A->next = nullptr;
+
                 this->head = A;
                 this->tail = A;
+                A->next = nullptr;
 
             }
         }
@@ -54,6 +55,7 @@ class ForwardList : public List<T> {
             } else{
                 this->head = A;
                 this->tail = A;
+                A->next = nullptr;
 
             }
         }
@@ -64,9 +66,11 @@ class ForwardList : public List<T> {
             //si hay al menos un elemento
             if(this->head){
                 Node<T>* temp = this->head;
-                this->head = temp->next;
-                if(!(this->head)){
-                   this->tail = nullptr;
+                this->head = this->head->next;
+                if(this->head){
+
+                } else{
+                    this->tail = nullptr;
                 }
                 delete temp;
             }
@@ -86,13 +90,13 @@ class ForwardList : public List<T> {
                     //temp apunta al penultimo elemento
                     this->tail = temp;
                     temp = temp->next;
-                    delete temp;
                     this->tail->next = nullptr;
+                    delete temp;
 
                 } else{ //si hay 1 elemento
-                    delete this->head;
                     this->head = nullptr;
                     this->tail = nullptr;
+                    delete temp;
                 }
 
             }
@@ -151,7 +155,10 @@ class ForwardList : public List<T> {
         }
 
         void clear() {
-            // TODO
+
+
+
+
         }
 
         void sort() {
