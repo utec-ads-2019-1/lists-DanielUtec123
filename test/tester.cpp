@@ -43,6 +43,7 @@ void Tester::testList(Collection collection) {
     ASSERT(list->size() == 0, "The " + list->name() + " size is not working");
     ASSERT(list->empty() == true, "The " + list->name() + " empty is not working");
     list->push_back(elements[0]);
+
     list->push_back(elements[1]);
     ASSERT(list->size() == 2, "The " + list->name() + " push_back or size is not working");
     ASSERT((*list)[1] == elements[1], "The " + list->name() + " operator [] is not working");
