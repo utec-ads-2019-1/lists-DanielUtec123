@@ -14,7 +14,7 @@ class ForwardList : public List<T> {
                     return this->head->data;
             }
 
-            throw out_of_range("lista sin elementos");
+            throw out_of_range("lista sin elementos\n");
         }
 
         T back() {
@@ -23,7 +23,7 @@ class ForwardList : public List<T> {
                 return this->tail->data;
             }
 
-            throw out_of_range("lista sin elementos");
+            throw out_of_range("lista sin elementos\n");
 
         }
 
@@ -31,7 +31,6 @@ class ForwardList : public List<T> {
 
             //añade un elemento al inicio de la lista
             Node<T>* A = new Node<T>{value, nullptr, nullptr};
-            A->data = value;
             if(this->head){
                 A->next = this->head;
                 this->head = A;
@@ -39,23 +38,21 @@ class ForwardList : public List<T> {
 
                 this->head = A;
                 this->tail = A;
-                A->next = nullptr;
 
             }
         }
 
         void push_back(T value) {
             // añade un elemento al final de la lista
-            Node<T>* A = new Node<T>;
-            A->data = value;
+            Node<T>* A = new Node<T>{value, nullptr, nullptr};
+
             if(this->tail){
-                A->next = nullptr;
+
                 this->tail->next = A;
                 this->tail = A;
             } else{
                 this->head = A;
                 this->tail = A;
-                A->next = nullptr;
 
             }
         }
@@ -65,15 +62,11 @@ class ForwardList : public List<T> {
 
             //si hay al menos un elemento
             if(this->head){
-                Node<T>* temp = this->head;
-                this->head = this->head->next;
-                if(this->head){
-
-                } else{
-                    this->tail = nullptr;
-                }
-                delete temp;
+                Node<T>* temp = this->head->next;
+                delete this->head;
+                this->head = temp;
             }
+
 
         }
 
@@ -81,7 +74,7 @@ class ForwardList : public List<T> {
             // elimina el ultimo elemento
             //si hay al menos un elemento
             if(this->tail){
-                Node<T>* temp = this->tail;
+                Node<T>* temp = this->head;
 
                 if(this->head->next) {//si hay al menos 2  elementos
                     while (temp->next->next){
@@ -100,6 +93,7 @@ class ForwardList : public List<T> {
                 }
 
             }
+
 
 
 
@@ -123,10 +117,10 @@ class ForwardList : public List<T> {
                 }
                 //i = numero de elementos de la lista
 
-                throw out_of_range("index");
+                throw out_of_range("indice mayor al numero de elementos");
 
             }
-            throw out_of_range("cero");
+            throw out_of_range("lista sin elememtos ");
 
         }
 
@@ -155,18 +149,80 @@ class ForwardList : public List<T> {
         }
 
         void clear() {
+            if(!empty()){
 
+                Node<T> *temp = this->head;
 
+                while (temp){
+                    temp = this->head->next;
+                    delete this->head;
+                    this->head = temp;
+                }
+
+                this->head = nullptr;
+                this->tail = nullptr;
+
+            }
 
 
         }
 
         void sort() {
-            // TODO
+            //bubble sort
+
+            if(!empty()){
+
+                Node<T>* i = this->head;
+
+                while (i->next){
+
+                    Node<T>* j= i->next;
+                    while (j){
+
+                        if(i->data>j->data){//switch i con j
+                            T temp = i->data;
+                            i->data = j->data;
+                            j->data = temp;
+                        }
+
+                        j= j->next;
+                    }
+                    i = i->next;
+                }
+
+
+            }
+
+
         }
     
         void reverse() {
-            // TODO
+            if(!empty()){
+
+                ForwardList<T> lista;
+                Node<T> *temp = this->head;
+                while (temp){
+                    lista.push_front(temp->data);
+                    temp =temp->next;
+                }
+
+                temp = this->head;
+                Node<T> *reverse = lista.head;
+
+                while(temp){
+
+                    temp->data = reverse->data;
+
+                    reverse =reverse->next;
+
+                    temp = temp->next;
+                }
+
+            }
+
+
+
+
         }
 
         string name() {
@@ -174,15 +230,23 @@ class ForwardList : public List<T> {
         }
 
         ForwardIterator<T> begin() {
-            // TODO
+            return ForwardIterator<T>(this->head);
         }
 
 	    ForwardIterator<T> end() {
-            // TODO
+            return nullptr;
         }
 
         void merge(ForwardList<T> list) {
-            // TODO
+
+            Node<T>* temp = list.head;
+
+            while (temp){
+                this->push_back(temp->data);
+                temp = temp ->next;
+            }
+
+
         }
 };
 
