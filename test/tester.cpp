@@ -119,6 +119,7 @@ void Tester::testForward(ForwardList<T>* list) {
 
     auto it = list->begin();
     ++it;
+
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     ++it;
     ++it;
@@ -165,12 +166,15 @@ void Tester::testCircularLinked(CircularLinkedList<T>* list) {
     list1->push_back(elements[4]);
 
     list->merge(*list1);
+
+
     ASSERT(list->size() == 5, "The " + list->name() + " merge is not working");
 
     auto it = list->begin();
     ++it;
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     ++it;
+
     ++it;
     --it;
     ASSERT(*it == elements[2], "The " + list->name() + " iterator is not working");

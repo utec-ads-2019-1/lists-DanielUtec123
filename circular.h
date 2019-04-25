@@ -130,16 +130,13 @@ class CircularLinkedList : public List<T> {
 
     int size() {
             if(!empty()) {
-
-
                     int i=1;
-                    Node<T>* temp = this->head->next;
-                    while (temp!=this->head){
+                    Node<T>* temp = this->head;
+                    while (temp->next!=this->head){
                             i++;
                             temp = temp->next;
                     }
                     return i;
-
             }
             return 0;
     }
@@ -237,16 +234,15 @@ class CircularLinkedList : public List<T> {
     }
 
     BidirectionalIterator<T> end() {
-            return BidirectionalIterator<T>(this->tail);
+            return BidirectionalIterator<T>(this->head);
     }
 
     void merge(CircularLinkedList<T> list) {
             Node<T>* temp = list.head;
-
-            this->push_back(temp->data);
-
-            while (temp->next!=list.head ){
-                    this->push_back(temp->data);
+            push_back(temp->data);
+            temp = temp ->next;
+            while (temp!=list.head ){
+                    push_back(temp->data);
                     temp = temp ->next;
             }
     }

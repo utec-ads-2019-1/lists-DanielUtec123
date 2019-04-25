@@ -19,6 +19,7 @@ class BidirectionalIterator : public Iterator<T> {
 
     BidirectionalIterator<T> operator++() {
             if(this->current){
+
                     this->current = this->current->next;
                     return *(this);
 
