@@ -125,6 +125,7 @@ class ForwardList : public List<T> {
     }
 
     bool empty() {
+            // Puede ser: return this->head == nullptr;
             if(this->head){
                     return false;
             }
@@ -234,6 +235,7 @@ class ForwardList : public List<T> {
     }
 
     ForwardIterator<T> end() {
+            // Debería ser return ForwardIterator<T>(nullptr);
             return nullptr;
     }
 

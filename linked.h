@@ -196,6 +196,7 @@ class LinkedList : public List<T> {
     }
 
     BidirectionalIterator<T> end() {
+            //return BidirectionalIterator<T>(this->head);
             return nullptr;
     }
 
